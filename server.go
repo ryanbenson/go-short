@@ -9,6 +9,7 @@ import (
 func Init(e *echo.Echo) {
 	e.Use(middleware.Logger())
   SetupRoutes(e)
+	Connect()
 }
 
 func Start(e *echo.Echo) {
