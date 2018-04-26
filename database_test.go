@@ -1,14 +1,14 @@
 package main
 
 import (
-	"os"
-	"testing"
+  "os"
+  "testing"
   . "github.com/franela/goblin"
   . "github.com/onsi/gomega"
 )
 
 func TestDatabase(t *testing.T) {
-	os.Setenv("ENV", "testing")
+  os.Setenv("ENV", "testing")
   g := Goblin(t)
 
   //special hook for gomega
