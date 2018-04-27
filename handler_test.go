@@ -8,11 +8,10 @@ import (
   . "github.com/franela/goblin"
 )
 
-var heartbeatResp string = `{"message":"Success"}`
-
 func TestHandler(t *testing.T) {
   os.Setenv("ENV", "testing")
   g := Goblin(t)
+  heartbeatResp := `{"message":"Success"}`
 
   g.Describe("Home page heartbeat", func() {
 
