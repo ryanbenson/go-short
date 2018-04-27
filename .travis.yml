@@ -3,6 +3,9 @@ language: go
 go:
   - 1.10.x
 
+services:
+- redis-server
+
 before_install:
   - go get -t -v ./...
 
