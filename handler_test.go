@@ -7,12 +7,20 @@ import (
   "net/http"
   "github.com/labstack/echo"
   . "github.com/franela/goblin"
+  . "github.com/onsi/gomega"
 )
+
+type Red struct {
+  Url  string `json:"url" form:"url" query:"url"`
+}
 
 func TestHandler(t *testing.T) {
   os.Setenv("ENV", "testing")
   g := Goblin(t)
   heartbeatResp := `{"message":"Success"}`
+
+  //special hook for gomega
+  RegisterFailHandler(func(m string, _ ...int) { g.Fail(m) })
 
   g.Describe("Home page heartbeat", func() {
 
@@ -45,8 +53,8 @@ func TestHandler(t *testing.T) {
       fileJSON := `{"url":"http://ryanbensonmedia.com"}`
       c, b, ct := request("POST", "/new", e, strings.NewReader(fileJSON))
       g.Assert(c).Equal(http.StatusCreated)
-      g.Assert(b).Equal(`{"message":"Success"}`)
       g.Assert(ct).Equal("application/json; charset=UTF-8")
+      Ω(b).Should(HaveLen(16+14)) // 16 for the key, 14 for the other chars around it
     })
   })
 }

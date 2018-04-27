@@ -24,6 +24,10 @@ func CreateRedirect(c echo.Context) error {
     badRequestMessage := &Response{Message: "Bad Request"}
     return c.JSON(http.StatusBadRequest, badRequestMessage)
   }
-  success := &Response{Message: "Success"}
+  urlKey, err := Save(r.Url)
+  if err != nil {
+    return c.JSON(http.StatusInternalServerError, &Response{Message: "Internal Error"})
+  }
+  success := &Response{Message: urlKey}
   return c.JSON(http.StatusCreated, success)
 }

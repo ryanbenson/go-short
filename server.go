@@ -10,10 +10,10 @@ import (
 func Init(e *echo.Echo) {
   e.Use(middleware.Logger())
   SetupRoutes(e)
-  Connect()
 }
 
 // Start runs the HTTP server
 func Start(e *echo.Echo) {
+  Connect()
   e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }

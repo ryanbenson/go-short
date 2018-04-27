@@ -22,4 +22,11 @@ func TestDatabase(t *testing.T) {
       Ω(err).ShouldNot(HaveOccurred())
     })
   })
+
+  g.Describe("Helpers", func() {
+    g.It("should create a random string for our keys", func() {
+      str := GetRandKey()
+      Ω(str).Should(HaveLen(16))
+    })
+  })
 }
