@@ -16,3 +16,14 @@ func Heartbeat(c echo.Context) error {
   success := &Response{Message: "Success"}
   return c.JSON(http.StatusOK, success)
 }
+
+// Create new redirect
+func CreateRedirect(c echo.Context) error {
+  r := new(Redirection)
+  if err := c.Bind(r); err != nil {
+    badRequestMessage := &Response{Message: "Bad Request"}
+    return c.JSON(http.StatusBadRequest, badRequestMessage)
+  }
+  success := &Response{Message: "Success"}
+  return c.JSON(http.StatusCreated, success)
+}

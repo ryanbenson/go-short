@@ -8,4 +8,5 @@ import (
 // all handlers are setup elsewhere
 func SetupRoutes(e *echo.Echo) {
   e.GET("/", Heartbeat)
+  e.POST("/new", CreateRedirect)
 }
