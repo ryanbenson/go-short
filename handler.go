@@ -36,7 +36,7 @@ func CreateRedirect(c echo.Context) error {
 func CheckAndRedirect(c echo.Context) error {
   redir := c.Param("redir")
   found, destURL := Find(redir)
-  if found == false || destUrl == "" {
+  if found == false || destURL == "" {
     notFoundMessage := &Response{Message: "Page Not Found"}
     return c.JSON(http.StatusNotFound, notFoundMessage)
   }
