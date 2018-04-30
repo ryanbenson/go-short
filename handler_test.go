@@ -10,10 +10,6 @@ import (
   . "github.com/onsi/gomega"
 )
 
-type Red struct {
-  Url  string `json:"url" form:"url" query:"url"`
-}
-
 func TestHandler(t *testing.T) {
   os.Setenv("ENV", "testing")
   g := Goblin(t)

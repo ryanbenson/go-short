@@ -9,8 +9,9 @@ var client *xredis.Client
 const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const keyLen = 16
 
+// Redirection struct to hold onto the data given
 type Redirection struct {
-  Url  string `json:"url" form:"url" query:"url"`
+  URL  string `json:"url" form:"url" query:"url"`
 }
 
 // Connect starts a connection to Redis and binds the client to the global var
@@ -27,7 +28,7 @@ func Save(url string) (string, error) {
   return key, err
 }
 
-// RandStringBytes gives us a random string
+// GetRandKey gives us a random string
 func GetRandKey() string {
     b := make([]byte, keyLen)
     for i := range b {

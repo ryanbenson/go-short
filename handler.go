@@ -17,14 +17,14 @@ func Heartbeat(c echo.Context) error {
   return c.JSON(http.StatusOK, success)
 }
 
-// Create new redirect
+// CreateRedirect saves a new redirect in the database
 func CreateRedirect(c echo.Context) error {
   r := new(Redirection)
   if err := c.Bind(r); err != nil {
     badRequestMessage := &Response{Message: "Bad Request"}
     return c.JSON(http.StatusBadRequest, badRequestMessage)
   }
-  urlKey, err := Save(r.Url)
+  urlKey, err := Save(r.URL)
   if err != nil {
     return c.JSON(http.StatusInternalServerError, &Response{Message: "Internal Error"})
   }
