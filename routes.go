@@ -9,4 +9,5 @@ import (
 func SetupRoutes(e *echo.Echo) {
   e.GET("/", Heartbeat)
   e.POST("/new", CreateRedirect)
+  e.POST("*", CheckAndRedirect)
 }

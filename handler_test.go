@@ -14,6 +14,8 @@ func TestHandler(t *testing.T) {
   os.Setenv("ENV", "testing")
   g := Goblin(t)
   heartbeatResp := `{"message":"Success"}`
+  var sampleRedirectStr string
+
 
   //special hook for gomega
   RegisterFailHandler(func(m string, _ ...int) { g.Fail(m) })
@@ -50,7 +52,24 @@ func TestHandler(t *testing.T) {
       c, b, ct := request("POST", "/new", e, strings.NewReader(fileJSON))
       g.Assert(c).Equal(http.StatusCreated)
       g.Assert(ct).Equal("application/json; charset=UTF-8")
-      Ω(b).Should(HaveLen(16+14)) // 16 for the key, 14 for the other chars around it
+      sampleRedirectStr = b[12:24]
+      Ω(sampleRedirectStr).Should(HaveLen(12))
+    })
+  })
+
+  g.Describe("Checks and redirects", func() {
+    e := echo.New()
+    Init(e)
+
+    g.It("should give a 404 for a bad redirect string", func() {
+      c, b, ct := request("GET", "/will-not-work", e, nil)
+      g.Asset(c).Equal(http.StatusNotFound)
+    })
+
+    g.It("should redirect with a valid redirect string", func() {
+      urlToRedirect = "/" + sampleRedirectStr
+      c, b, ct := request("GET", urlToRedirect, e, nil)
+      g.Asset(c).Equal(http.StatusMovedPermanently)
     })
   })
 }
