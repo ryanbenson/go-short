@@ -28,5 +28,11 @@ func TestDatabase(t *testing.T) {
       str := GetRandKey()
       Ω(str).Should(HaveLen(16))
     })
+
+    g.It("should fail to find a key/val", func() {
+      found, value := Find("fd7a89f7das98")
+      g.Assert(found).Equal(false)
+      g.Assert(value).Equal("")
+    })
   })
 }

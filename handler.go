@@ -31,3 +31,14 @@ func CreateRedirect(c echo.Context) error {
   success := &Response{Message: urlKey}
   return c.JSON(http.StatusCreated, success)
 }
+
+// CheckAndRedirect validates the request, and redirects or throws 404 at you
+func CheckAndRedirect(c echo.Context) error {
+  redir := c.Param("redir")
+  found, destUrl := Find(redir)
+  if found == false || destUrl == "" {
+    notFoundMessage := &Response{Message: "Page Not Found"}
+    return c.JSON(http.StatusNotFound, notFoundMessage)
+  }
+  return c.Redirect(http.StatusMovedPermanently, destUrl)
+}

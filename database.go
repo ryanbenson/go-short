@@ -36,3 +36,9 @@ func GetRandKey() string {
     }
     return string(b)
 }
+
+// Find checks for the given redirect key and returns its validity and value
+func Find(key string) (bool, string) {
+  url, keyExists, _ := client.Get(key)
+  return keyExists, url
+}
